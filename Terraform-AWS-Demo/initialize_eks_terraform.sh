@@ -49,8 +49,8 @@ output "cluster_id" {
 EOL
 
 # Lint
-pre-commit run -a
-echo "Linted."
+# pre-commit run -a
+echo "Linting skipped."
 
 # Plan and Apply
 terraform plan
@@ -59,3 +59,8 @@ read -rp "Apply? (y/n): " confirm
 terraform apply
 
 echo "EKS cluster created."
+
+# Uncomment the following lines to destroy the created resource
+# read -rp "Destroy? (yes/no): " confirm_destroy
+# [[ $confirm_destroy == [yY] || $confirm_destroy == [yY][eE][sS] ]] || exit 1
+# terraform destroy
