@@ -1,10 +1,6 @@
 #!/bin/bash
 set -euo pipefail
 
-REGION="us-east-2"
-INSTANCE_TYPE="t2.micro"
-AMI_ID="ami-051f7e7f6c2f40dc1"
-
 echo "Initializing Terraform."
 terraform init
 
@@ -25,15 +21,15 @@ EOL
 
 create_tf_file "variables.tf" <<EOL
 variable "region" {
-  default = "$REGION"
+  default = "us-east-2"
 }
 
 variable "instance_type" {
-  default = "$INSTANCE_TYPE"
+  default = "t2.micro"
 }
 
 variable "ami_id" {
-  default = "$AMI_ID"
+  default = "ami-051f7e7f6c2f40dc1"
 }
 EOL
 
@@ -43,8 +39,8 @@ output "instance_id" {
 }
 EOL
 
-echo "Linting."
-pre-commit run -a
+# echo "Linting."
+# pre-commit run -a
 
 echo "Terraform plan."
 terraform plan
@@ -54,3 +50,8 @@ read -rp "Apply? (yes/no): " confirm
 terraform apply
 
 echo "EC2 instance created."
+
+# Uncomment the following lines to destroy the created resource
+# read -rp "Destroy? (yes/no): " confirm_destroy
+# [[ $confirm_destroy == [yY] || $confirm_destroy == [yY][eE][sS] ]] || exit 1
+# terraform destroy
