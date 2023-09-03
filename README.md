@@ -4,6 +4,9 @@ Overview
 
 Welcome to the GitHub repository for DevOps-AI, a YouTube channel tailored for professionals keen on mastering DevOps, generative AI, Kubernetes, Terraform, and more. Our focus is to bring you cutting-edge technologies and industry best practices.
 
+![image](https://github.com/d3287t328/DevOps-AI/assets/125713831/ea6ea2dd-aaae-4305-8819-8d91a98a8c45)
+
+
 🎯 Topics We Cover
 DevOps: CI/CD, Monitoring, Configuration Management
 Generative AI: ChatGPT, Hugging Face, Langchain
