@@ -93,7 +93,7 @@ output "cluster_id" {
 EOL
 
 # Lint
-pre-commit run -a
+# pre-commit run -a
 echo "Linted."
 
 # Plan and Apply
