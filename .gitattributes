@@ -1,0 +1,10 @@
+# Normalize line endings
+* text=auto
+
+# Explicitly declare text files
+*.sh text
+README.md text
+
+# Custom diff for specific file types
+*.sh diff=sh
+

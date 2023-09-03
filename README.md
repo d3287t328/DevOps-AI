@@ -43,6 +43,8 @@ For inquiries or potential collaborations:
 
 Email: TBD
 Twitter: @TBD
+Discord: https://discord.gg/fP8dQqxBhZ
+
 📃 License
 This project is under the MIT License. See the LICENSE.md file for full details.
 

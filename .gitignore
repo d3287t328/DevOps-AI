@@ -1,0 +1,10 @@
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore Terraform files that are generated locally
+.terraform/
+
+# Ignore files that may contain sensitive information or secrets
+*.tfvars
+
