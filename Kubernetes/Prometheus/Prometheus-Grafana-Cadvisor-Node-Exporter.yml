@@ -1,0 +1,121 @@
+# under development
+version: '3.8'
+networks: 
+  monitoring: 
+    driver: bridge 
+volumes: 
+  prometheus_data: {} 
+services: 
+  node-exporter: 
+    image: prom/node-exporter:latest 
+    container_name: node-exporter 
+    restart: unless-stopped 
+    user: "1000:1000"
+    volumes: 
+      - /proc:/host/proc:ro 
+      - /sys:/host/sys:ro 
+      - /:/rootfs:ro 
+    command: 
+      - '--path.procfs=/host/proc' 
+      - '--path.rootfs=/rootfs' 
+      - '--path.sysfs=/host/sys' 
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)' 
+    ports: 
+      - 9100:9100 
+    networks: 
+      - monitoring 
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+  cadvisor: 
+    image: gcr.io/cadvisor/cadvisor:latest 
+    container_name: cadvisor 
+    user: "1000:1000"
+    ports: 
+      - 8081:8080 
+    networks: 
+      - monitoring 
+    volumes: 
+      - /:/rootfs:ro 
+      - /var/run:/var/run:rw 
+      - /sys:/sys:ro 
+      - /var/lib/docker/:/var/lib/docker:ro 
+    depends_on: 
+      - redis 
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+  grafana: 
+    image: grafana/grafana:latest 
+    container_name: grafana 
+    user: "1000:1000"
+    ports: 
+      - 3000:3000 
+    networks: 
+      - monitoring 
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+  alertmanager: 
+    image: prom/alertmanager:latest 
+    container_name: alertmanager 
+    user: "1000:1000"
+    ports: 
+      - 9093:9093 
+    networks: 
+      - monitoring 
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 50M
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost"]
+      interval: 1m30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
