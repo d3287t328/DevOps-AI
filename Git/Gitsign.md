@@ -45,6 +45,23 @@ Here's how you can trust commits made via the GitHub API:
 - key:
     kms: https://github.com/web-flow.gpg
 ```
+
+Here are some notes on why trusting this key is so important:
+
+The key at https://github.com/web-flow.gpg is a special GPG key managed by GitHub for commits made through the GitHub API or UI. By adding it as an authority in your .chainguard/source.yaml file, you configure Chainguard Enforce to trust commits signed with this key.
+
+Trusts GitHub-managed commits, simplifying workflow. Allows pull requests merged via GitHub UI/API to pass Chainguard Enforce checks without manual signature. Useful for automated workflows and integrations.
+
+Automated Workflows: If you're using GitHub Actions or other CI/CD tools, commits may be automatically generated. Trusting the GitHub-managed key allows these commits to pass your security checks without additional configuration.
+
+Admin Operations: When resolving conflicts or making quick fixes directly via the GitHub UI, commits are signed by GitHub's web-flow. Trusting this key avoids breaking your signing policy for these cases.
+
+Collaboration: External contributors who might not have set up Gitsign can still have their commits trusted when using GitHub's web UI, lowering the barrier to entry.
+
+Security: The key is managed by GitHub, reducing the risk associated with key compromise as GitHub has its security measures.
+
+Streamlining: Reduces the number of steps each team member must take to get up and running, making it easier to enforce a strong security posture without complicating the development workflow.
+
 Enforce Submission Requirements
 
 Want to make Enforce mandatory for PR submissions? Just enable the "Require status checks before merging" feature.
